@@ -19,7 +19,7 @@ jobs:
       - name: Add SSH key for Ansible
         run: |
           mkdir -p ~/.ssh
-          echo "${{secrets.SERVER_IP}}"
+          echo "$SERVER_IP"
           echo -e "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           cat ~/.ssh/id_ed25519
           chmod 700 ~/.ssh/id_ed25519
