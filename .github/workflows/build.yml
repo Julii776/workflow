@@ -1,0 +1,30 @@
+name: Build and Deploy Docker Container
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  WEBAPP_IMAGE_NAME: reneasy/prince-geoffrey
+
+jobs:
+  build-publish-webapp:
+    name: Build and deploy webapp container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Add SSH key for Ansible
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{env.SERVER_IP}}"
+          echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          cat ~/.ssh/id_ed25519
+          chmod 700 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{env.SERVER_IP}} >> ~/.ssh/known_hosts
+          ssh -v -i ~/.ssh/id_ed25519 root@${{ env.SERVER_IP }} "echo 'SSH is working!'"
+        env:
+          SSH_PRIVATE_KEY: ${{ env.PRIVATE_KEY }}
+          SERVER_IP: ${{env.SERVER_IP}}
