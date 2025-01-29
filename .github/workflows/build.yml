@@ -31,3 +31,9 @@ jobs:
 
       - name: Display .env file content (for debugging)
         run: cat .env
+
+      - name: Create .env.sample file
+        run: echo "${{ vars.ENV_FILE }}" > .env.sample
+
+      - name: Display .env.sample file content (for debugging)
+        run: cat .env.sample
