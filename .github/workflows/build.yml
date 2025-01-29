@@ -25,3 +25,9 @@ jobs:
           chmod 700 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
           ssh -v -i ~/.ssh/id_ed25519 root@${{ secrets.SERVER_IP }} "echo 'SSH is working!'"
+
+      - name: Create .env file
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+
+      - name: Display .env file content (for debugging)
+        run: cat .env
