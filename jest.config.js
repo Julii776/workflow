@@ -8,6 +8,10 @@ const createJestConfig = nextJest({
 const customJestConfig = {
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     testEnvironment: 'jest-environment-jsdom',
+    testMatch: [
+        '**/__tests__/**/*.[jt]s?(x)',
+        '**/?(*.)+(spec|test).[jt]s?(x)'
+    ],
     collectCoverageFrom: [
         'app/**/*.{js,jsx,ts,tsx}',
         'pages/**/*.{js,jsx,ts,tsx}',
@@ -16,7 +20,7 @@ const customJestConfig = {
         '!**/node_modules/**',
         '!**/.next/**',
     ],
+    coverageDirectory: 'coverage',
     coverageReporters: ['lcov', 'text', 'text-summary'],
 }
-
 module.exports = createJestConfig(customJestConfig)
