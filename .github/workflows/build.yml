@@ -1,4 +1,4 @@
-name: QLTY Coverage
+name: Test & Coverage
 
 on:
   push:
@@ -10,10 +10,15 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Run QLTY Coverage
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with coverage
+        run: npm test -- --coverage
+
+      - name: Upload QLTY Coverage
         uses: qltysh/qlty-action/coverage@v2
         env:
           QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
