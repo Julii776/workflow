@@ -1,37 +1,22 @@
-name: Build and Deploy Docker Container
+name: QLTY Coverage
+
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
-
-env:
-  REGISTRY: ghcr.io
-  WEBAPP_IMAGE_NAME: reneasy/prince-geoffrey
+  pull_request:
 
 jobs:
-  build-publish-webapp:
-    name: Build and deploy webapp container
+  coverage:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Add SSH key for Ansible
-        run: |
-          mkdir -p ~/.ssh
-          echo -e "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 700 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-          ssh -v -i ~/.ssh/id_ed25519 root@${{ secrets.SERVER_IP }} "echo 'SSH is working!'"
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Create .env file
-        run: echo "${{ secrets.ENV_FILE }}" > .env
-
-      - name: Display .env file content (for debugging)
-        run: cat .env
-
-      - name: Create .env.sample file
-        run: echo "${{ vars.ENV_FILE }}" > .env.sample
-
-      - name: Display .env.sample file content (for debugging)
-        run: cat .env.sample
+      - name: Run QLTY Coverage
+        uses: qltysh/qlty-action/coverage@v2
+        env:
+          QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: coverage/lcov.info
