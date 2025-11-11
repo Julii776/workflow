@@ -1,5 +1,4 @@
-name: Test & Coverage
-
+name: Test and Coverage
 on:
   push:
     branches:
@@ -7,21 +6,18 @@ on:
   pull_request:
 
 jobs:
-  coverage:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests with coverage
-        run: npm test -- --coverage
+        run: npm run test:coverage
 
-      - name: Upload QLTY Coverage
-        uses: qltysh/qlty-action/coverage@v2
-        env:
-          QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+      - uses: qltysh/qlty-action/coverage@v2
         with:
           token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: coverage/lcov.info
