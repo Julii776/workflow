@@ -17,7 +17,19 @@ jobs:
       - name: Run tests with coverage
         run: npm run test:coverage
 
-      - uses: qltysh/qlty-action/coverage@v2
-        with:
-          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: coverage/lcov.info
+      # - uses: qltysh/qlty-action/coverage@v2
+      #   with:
+      #     token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+      #     files: coverage/lcov.info
+
+      - name: Upload coverage manually
+        run: |
+          curl -X POST https://6aeef2453f19.ngrok-free.app/api/coverage/upload \
+            -H "Authorization: Bearer ${{ secrets.BOB_COVERAGE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "coverage": "'"$(cat coverage/lcov.info)"'",
+              "commit": "${{ github.sha }}",
+              "branch": "${{ github.ref_name }}",
+              "repository": "${{ github.repository }}"
+            }'
