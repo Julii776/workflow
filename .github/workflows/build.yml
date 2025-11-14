@@ -33,6 +33,6 @@ jobs:
               \"commit\": \"${{ github.sha }}\",
               \"branch\": \"${{ github.ref_name }}\",
               \"ref\": \"${{ github.ref }}\",
-              \"repository\": \"${{ github.repository }}\"
+              \"repository\": \"${{ github.repository }}\",
               \"token\": \"${{ secrets.BOB_COVERAGE_TOKEN }}\"
             }"
