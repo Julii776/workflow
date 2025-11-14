@@ -24,12 +24,14 @@ jobs:
 
       - name: Upload coverage manually
         run: |
+          LCOV_BASE64=$(base64 -w 0 coverage/lcov.info)
+
           curl -X POST https://6aeef2453f19.ngrok-free.app/api/coverage/upload \
             -H "Authorization: Bearer ${{ secrets.BOB_COVERAGE_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d '{
-              "coverage": "'"$(cat coverage/lcov.info)"'",
-              "commit": "${{ github.sha }}",
-              "branch": "${{ github.ref_name }}",
-              "repository": "${{ github.repository }}"
-            }'
+            -d "{
+              \"coverage\": \"${LCOV_BASE64}\",
+              \"commit\": \"${{ github.sha }}\",
+              \"branch\": \"${{ github.ref_name }}\",
+              \"repository\": \"${{ github.repository }}\"
+            }"
