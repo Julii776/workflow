@@ -34,5 +34,6 @@ jobs:
               \"branch\": \"${{ github.ref_name }}\",
               \"ref\": \"${{ github.ref }}\",
               \"repository\": \"${{ github.repository }}\",
-              \"token\": \"${{ secrets.BOB_COVERAGE_TOKEN }}\"
+              \"token\": \"${{ secrets.BOB_COVERAGE_TOKEN }}\",
+              \"buildId\": \"${{ secrets.BOB_COVERAGE_TOKEN }}\"
             }"
