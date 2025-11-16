@@ -19,6 +19,9 @@ const customJestConfig = {
         '!**/*.d.ts',
         '!**/node_modules/**',
         '!**/.next/**',
+        "!postcss.config.js",
+        "!tailwind.config.js",
+
     ],
     coverageDirectory: 'coverage',
     coverageReporters: ['lcov', 'text', 'text-summary'],
