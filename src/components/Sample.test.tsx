@@ -7,11 +7,6 @@ describe("Testing Sample component", () => {
     render(<Sample />);
   });
 
-  it("renders a heading", () => {
-    const text = screen.getByText(/Sample/i);
-    expect(text).toBeInTheDocument();
-  });
-
   it("renders a heading inside h1", () => {
     const text = screen.getByRole("heading", { level: 1 });
     expect(text).toBeInTheDocument();

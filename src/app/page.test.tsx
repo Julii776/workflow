@@ -19,7 +19,7 @@ describe("Testing main page", () => {
   });
 
   it("renders Sample component", () => {
-    const sampleHeading = screen.getByText(/Sample/i);
+    const sampleHeading = screen.getByRole("heading", { name: /Sample/i, level: 1 });
     expect(sampleHeading).toBeInTheDocument();
   });
 
