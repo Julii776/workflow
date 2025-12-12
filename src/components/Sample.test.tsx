@@ -1,24 +1,26 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Home from "./Home";
+import Sample from "./Sample";
 
-describe("Testing Home component", () => {
+describe("Testing Sample component", () => {
   beforeEach(() => {
-    render(<Home />);
+    render(<Sample />);
   });
 
   it("renders a heading", () => {
-    const text = screen.getByText(/Home/i);
+    const text = screen.getByText(/Sample/i);
     expect(text).toBeInTheDocument();
   });
 
   it("renders a heading inside h1", () => {
     const text = screen.getByRole("heading", { level: 1 });
     expect(text).toBeInTheDocument();
+    expect(text.textContent).toBe("Sample");
   });
 
   it("Test the description", () => {
     const text = screen.getByTestId("desc");
-    expect(text.textContent).toMatch(/description/);
+    expect(text).toBeInTheDocument();
+    expect(text.textContent).toBe("This is the sample component.");
   });
 });
