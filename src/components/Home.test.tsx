@@ -13,13 +13,12 @@ describe("Testing Home component", () => {
   });
 
   it("renders a heading inside h1", () => {
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toBeInTheDocument();
+    const text = screen.getByRole("heading", { level: 1 });
+    expect(text).toBeInTheDocument();
   });
 
   it("Test the description", () => {
     const text = screen.getByTestId("desc");
-    expect(text).toBeInTheDocument();
     expect(text.textContent).toMatch(/description/);
   });
 });
