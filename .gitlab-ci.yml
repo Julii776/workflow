@@ -1,0 +1,12 @@
+stages:
+  - test
+
+test_and_coverage:
+  stage: test
+  image: node:20 # Use your preferred Node.js version
+  script:
+    - npm ci
+    - npm run test:coverage
+  only:
+    - main
+    - merge_requests
