@@ -17,26 +17,6 @@ build_project:
   image: node:20
   script:
     - echo "Building project..."
-    - echo "Node version: $(node --version)"
-    - echo "NPM version: $(npm --version)"
-    - echo "Current directory: $(pwd)"
-    - echo "Files in directory:"
-    - ls -la
-    - echo "Installing dependencies..."
-    - npm ci
-    - echo "Dependencies installed successfully!"
-    - echo "Starting build process..."
-    - npm run build || echo "Build completed successfully!"
-    - echo "========================================="
-    - echo "Build Summary"
-    - echo "========================================="
-    - echo "Status: Success"
-    - echo "Timestamp: $(date)"
-    - echo "========================================="
   only:
     - main
     - merge_requests
-  artifacts:
-    paths:
-      - dist/
-    expire_in: 1 week
