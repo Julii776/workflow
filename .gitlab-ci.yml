@@ -1,0 +1,22 @@
+stages:
+  - test
+  - build
+
+test_and_coverage:
+  stage: test
+  image: node:20
+  script:
+    - npm ci
+    - npm run test:coverage
+  only:
+    - main
+    - merge_requests
+
+build_project:
+  stage: build
+  image: node:20
+  script:
+    - echo "Building project..."
+  only:
+    - main
+    - merge_requests
